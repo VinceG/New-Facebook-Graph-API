@@ -47,7 +47,11 @@ if ($user) {
 if ($user) {
   $logoutUrl = $facebook->getLogoutUrl();
 } else {
-  $loginUrl = $facebook->getLoginUrl();
+  	$loginUrl   = $facebook->getLoginUrl(
+	            array(
+	                'scope'         => 'email,offline_access,publish_stream,user_birthday,user_location,user_work_history,user_about_me,user_hometown',
+	            )
+	    );
 }
 
 // This call will always work since we are fetching public data.
