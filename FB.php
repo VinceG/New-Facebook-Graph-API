@@ -54,7 +54,7 @@ class FB extends Facebook {
 		return $this->innerResult;
 	}
 	
-	protected function getUserId($objectId=null) {
+	protected function getObjectId($objectId=null) {
 		return $objectId!== null ? $objectId : $this->getUser();
 	}
 	
