@@ -1,0 +1,791 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="author" content="Vincent Gabriel" />
+		<meta name="copyright" content="2012 Vincent Gabriel" />
+		<title>Facebook API Wrapper 2.0</title>
+		<style type="text/css" media="all">
+			html, body, h1, h2, h3, h4, div, p, dl { margin: 0; padding: 0; }
+			body { background: #021e2c; color: #fff; font-size: 12px; font-family: Verdana, Arial, "Trebuchet MS", "Times New Roman"; width: 800px; margin: auto; }
+			h1, h2, h3, h4 { font-weight: normal; }
+			a { color: #444; text-decoration: underline; } a:hover { text-decoration: underline; }
+			#header { background: #021e2c; padding: 20px; color: #f1f1f1; font-size: 22px; border-bottom: 1px solid #222; }
+			.box { background: #f1f1f1; padding: 20px; border-top: 1px solid #fff; border-bottom: 1px solid #222; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+			.box h3 { font-size: 16px; color: #444; padding: 0 0 3px 0; margin: 0 0 3px 0; border-bottom: 1px solid #999; letter-spacing: -0.5px; }
+			.box h4 { font-weight:bold; font-size: 14px; color: #444; padding: 5px 2px 3px 0; margin: 0 0 3px 0; letter-spacing: -0.5px; }
+			.box dl { color: #444; margin-bottom: 10px; }
+			.box dt, dd { padding: 3px 0; border-bottom: 1px solid #e1e1e1; }
+			.box dt { float: left; font-weight: bold; }
+			.box dd { text-align: right; }
+			.box p { color: #444; padding: 2px; }
+			.box textarea {display: block; padding: 5px; margin-bottom: 5px; margin-top: 5px; width: 90%; }
+			.box-space {margin-top: 20px; margin-bottom: 20px; }
+			#content { padding: 20px; }
+			#content h3 { font-size: 16px; padding: 0 0 5px 0; margin: 0 0 5px 0; border-bottom: 1px solid #03283a; }
+			#content p { margin: 0 0 40px 0; }
+			#content span { float: right; }
+			#content a { color: #fff; text-decoration: underline; }
+			#cr { position: fixed; bottom: 20px; right: 20px; color: #818f96; }
+			#cr a { color: #818f96; }
+			ul { color: #444; }
+		</style>
+		<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+		<type="text/javascript">
+		$(document).ready(function() {
+			$('textarea').each(function(i) {
+				console.log(1);
+			});
+		});	
+		</script>
+	</head>
+	<body>
+		<div id="header">Facebook API Wrapper 2.0</div>
+		<div id="fileInfo" class='box'>
+			<h3>Information</h3>
+			<dl>
+				<dt>Title:</dt>
+					<dd>Facebook API Wrapper 2.0</dd>
+				<dt>Version:</dt>
+					<dd>2.0</dd>
+				<dt>Requirements:</dt>
+					<dd>PHP > 5.1</dd>
+				<dt>Author:</dt>
+					<dd>Vincent Gabriel</dd>
+				<dt>Website:</dt>
+					<dd><a href="http://vadimg.com" target="_blank">http://vadimg.com</a></dd>
+			</dl>
+			<h3>Description</h3>
+            
+			<p>
+				This is the new Facebook API Wrapper that utilizes the updated Facebook PHP SDK v3.0 .
+			</p>
+		
+			<br />
+			<h3>Quick Feature List</h3>
+            
+			<ul>
+				<li><a href='#Login/Logout Option'>Login/Logout Option</a></li>
+				<li><a href='#Getting user information'>Getting user information</a></li>
+				<li><a href='#Getting user friends'>Getting user friends</a></li>
+				<li><a href='#Getting user wall feed'>Getting user wall feed</a></li>
+				<li><a href='#Getting user likes'>Getting user likes</a></li>
+				<li><a href='#Getting user movies'>Getting user movies</a></li>
+				<li><a href='#Getting user music'>Getting user music</a></li>
+				<li><a href='#Getting user books'>Getting user books</a></li>
+				<li><a href='#Getting user notes'>Getting user notes</a></li>
+				<li><a href='#Getting user permissions'>Getting user permissions</a></li>
+				<li><a href='#Getting user photo tags'>Getting user photo tags</a></li>
+				<li><a href='#Getting user photo albums'>Getting user photo albums</a></li>
+				<li><a href='#Getting user video tags'>Getting user video tags</a></li>
+				<li><a href='#Getting user video uploads'>Getting user video uploads</a></li>
+				<li><a href='#Getting user events'>Getting user events</a></li>
+				<li><a href='#Getting user groups'>Getting user groups</a></li>
+				<li><a href='#Getting user checkins'>Getting user checkins</a></li>
+				<li><a href='#Getting user locations'>Getting user locations</a></li>
+				<li><a href='#Adding new wall posts'>Adding new wall posts</a></li>
+				<li><a href='#Adding new notes'>Adding new notes</a></li>
+				<li><a href='#Adding new links'>Adding new links</a></li>
+				<li><a href='#Adding new comments'>Adding new comments</a></li>
+				<li><a href='#Adding new likes'>Adding new likes</a></li>
+				<li><a href='#Adding new events'>Adding new events</a></li>
+				<li><a href='#Adding new albums'>Adding new albums</a></li>
+				<li><a href='#Adding new photos'>Adding new photos</a></li>
+				<li><a href='#Adding new checkins'>Adding new checkins</a></li>
+				<li><a href='#Attending an event'>Attending an event</a></li>
+				<li><a href='#Maybe Attending an event'>Maybe Attending an event</a></li>
+				<li><a href='#Declining an event'>Declining an event</a></li>
+				<li><a href='#Searching'>Searching</a></li>
+				<li><a href='#reset'>Clearing Session / Resetting</a></li>
+			</ul>
+
+			<br />			
+		</div>
+		
+		<!-- start box -->
+		<div class='box box-space'>
+			<h3>Before you start</h3>
+			
+			<h4>Reference</h4>
+			<ul>
+				<li><a href='https://developers.facebook.com/docs/reference/api/permissions/' target='_blank'>Facebook user permissions</a> - This shows the list of user permissions that are required to read data and push data.</li>
+				<li><a href='https://developers.facebook.com/docs/reference/api/' target='_blank'>Facebook PHP Api Reference</a> - This shows the list of allowed operations both reading and pushing data into facebook. Referrer to this link if you need to know what parameters are allowed to use for each method.</li>
+			</ul>
+			
+			<h4>Permissions</h4>
+			<p>
+				Each pushing method (By pushing i mean method that pushes data into facebook not retrieving) requires certain user permissions to work properly. In most cases the permission 'publish_stream' is enough but sometimes there are certain operations that require more then that. For example to create user checkins you need the
+				'publish_checkins' user extended permissions, Referrer to the reference section above to see the list of user permissions and extended permissions. <br /><br />
+				In the actual class itself the 'FB' class you'll see a property '@permission' which is normally referees to the methods visibility in PHP (public, protected, private) but in this case it will show a list of the required facebook permission to have in order to use it.
+			</p>
+			
+			<h4>Method Parameters</h4>
+			<p>
+				Each method both reading and pushing accepts certain parameters. In most cases the first parameter is an array of parameters that specific method accepts, followed by the second parameter which is the user or object id that is set to null by default and is not required.<br /><br />
+				For example <a href='#Adding new wall posts'>addWallPost($params, $objectId)</a> accepts an array as the first parameter which should have the following keys: message, picture, link, name, caption, description, source, place, tags. Some are required (message, name) others are optional.<br /><br />
+				Unfortunately facebook does not show which are required and which are not so the more values you set the better.<br /><br />
+				Second parameter is optional and represents the user id or object id you would like to perform the operation on. In this case the objectId is the user id you would like to post the message on his wall, if you leave it as null it will use the current logged in user as the objectId, if you pass in a number as the second parameter it will try to post the message to that user profile (the user needs to have the required permissions that in this case posting a wall post requires the 'publish_stream' permissions), In other cases/methods the second argument is not the user id but an object id.<br /><br />
+				For example when you want to add a comment to a certain post you'd use the <a href='#Adding new comments'>addComment($params, $objectId)</a> the objectId is the post id (if you have it stored somewhere or you'd just posted a new post on a users wall and you have it's id).<br /><br />
+				To be certain referrer to the class API documentation to see the method parameters and read the description to see what keys it accepts in the first argument array and what is the objectId referees to in that case. 
+			</p>
+			
+			<h4>Examples</h4>
+			<p>
+				Inside the 'examples' folder you'll find several php files that show an example of each of the methods provided in the 'FB' class file. 
+			</p>
+			
+			<h4>Checking Result</h4>
+			<p>
+				Even though it covered in the actual 'FB' class and each example file shows the way to get the result and see if the operation was successful or not, I'll quickly cover how to check if the operation you tried to perform was successful or not.<br /><br />
+				This is mostly used when trying to push data as opposed to retrieve data since when retrieving data you'll get an array with the info, if the operation failed the array will be empty.<br /><br />
+				There are several convenient methods you can use to get the result you'd expect. For instance if we performed an operation for this example purposes we will use <a href='#Adding new wall posts'>addWallPost($params, $objectId)</a>.
+				
+				<textarea readonly='readonly'>
+					test
+				</textarea>
+				
+			</p>
+			
+		</div>
+		<!-- end box -->
+		
+		
+		<!-- Start Login/Logout Option -->
+		<div class='box box-space'>
+			<a name='Login/Logout Option'></a>
+			<h3>Login/Logout Option</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Login/Logout Option -->
+
+		<!-- Start Getting user information -->
+		<div class='box box-space'>
+			<a name='Getting user information'></a>
+			<h3>Getting User Information</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user information -->
+
+		<!-- Start Getting user friends -->
+		<div class='box box-space'>
+			<a name='Getting user friends'></a>
+			<h3>Getting User Friends</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user friends -->
+
+		<!-- Start Getting user wall feed -->
+		<div class='box box-space'>
+			<a name='Getting user wall feed'></a>
+			<h3>Getting User Wall Feed</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user wall feed -->
+
+		<!-- Start Getting user likes -->
+		<div class='box box-space'>
+			<a name='Getting user likes'></a>
+			<h3>Getting User Likes</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user likes -->
+
+		<!-- Start Getting user movies -->
+		<div class='box box-space'>
+			<a name='Getting user movies'></a>
+			<h3>Getting User Movies</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user movies -->
+
+		<!-- Start Getting user music -->
+		<div class='box box-space'>
+			<a name='Getting user music'></a>
+			<h3>Getting User Music</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user music -->
+
+		<!-- Start Getting user books -->
+		<div class='box box-space'>
+			<a name='Getting user books'></a>
+			<h3>Getting User Books</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user books -->
+
+		<!-- Start Getting user notes -->
+		<div class='box box-space'>
+			<a name='Getting user notes'></a>
+			<h3>Getting User Notes</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user notes -->
+
+		<!-- Start Getting user permissions -->
+		<div class='box box-space'>
+			<a name='Getting user permissions'></a>
+			<h3>Getting User Permissions</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user permissions -->
+
+		<!-- Start Getting user photo tags -->
+		<div class='box box-space'>
+			<a name='Getting user photo tags'></a>
+			<h3>Getting User Photo Tags</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user photo tags -->
+
+		<!-- Start Getting user photo albums -->
+		<div class='box box-space'>
+			<a name='Getting user photo albums'></a>
+			<h3>Getting User Photo Albums</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user photo albums -->
+
+		<!-- Start Getting user video tags -->
+		<div class='box box-space'>
+			<a name='Getting user video tags'></a>
+			<h3>Getting User Video Tags</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user video tags -->
+
+		<!-- Start Getting user video uploads -->
+		<div class='box box-space'>
+			<a name='Getting user video uploads'></a>
+			<h3>Getting User Video Uploads</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user video uploads -->
+
+		<!-- Start Getting user events -->
+		<div class='box box-space'>
+			<a name='Getting user events'></a>
+			<h3>Getting User Events</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user events -->
+
+		<!-- Start Getting user groups -->
+		<div class='box box-space'>
+			<a name='Getting user groups'></a>
+			<h3>Getting User Groups</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user groups -->
+
+		<!-- Start Getting user checkins -->
+		<div class='box box-space'>
+			<a name='Getting user checkins'></a>
+			<h3>Getting User Checkins</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user checkins -->
+
+		<!-- Start Getting user locations -->
+		<div class='box box-space'>
+			<a name='Getting user locations'></a>
+			<h3>Getting User Locations</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user locations -->
+
+		<!-- Start Adding new wall posts -->
+		<div class='box box-space'>
+			<a name='Adding new wall posts'></a>
+			<h3>Adding New Wall Posts</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new wall posts -->
+
+		<!-- Start Adding new notes -->
+		<div class='box box-space'>
+			<a name='Adding new notes'></a>
+			<h3>Adding New Notes</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new notes -->
+
+		<!-- Start Adding new links -->
+		<div class='box box-space'>
+			<a name='Adding new links'></a>
+			<h3>Adding New Links</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new links -->
+
+		<!-- Start Adding new comments -->
+		<div class='box box-space'>
+			<a name='Adding new comments'></a>
+			<h3>Adding New Comments</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new comments -->
+
+		<!-- Start Adding new likes -->
+		<div class='box box-space'>
+			<a name='Adding new likes'></a>
+			<h3>Adding New Likes</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new likes -->
+
+		<!-- Start Adding new events -->
+		<div class='box box-space'>
+			<a name='Adding new events'></a>
+			<h3>Adding New Events</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new events -->
+
+		<!-- Start Adding new albums -->
+		<div class='box box-space'>
+			<a name='Adding new albums'></a>
+			<h3>Adding New Albums</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new albums -->
+
+		<!-- Start Adding new photos -->
+		<div class='box box-space'>
+			<a name='Adding new photos'></a>
+			<h3>Adding New Photos</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new photos -->
+
+		<!-- Start Adding new checkins -->
+		<div class='box box-space'>
+			<a name='Adding new checkins'></a>
+			<h3>Adding New Checkins</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new checkins -->
+
+		<!-- Start Attending an event -->
+		<div class='box box-space'>
+			<a name='Attending an event'></a>
+			<h3>Attending An Event</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Attending an event -->
+
+		<!-- Start Maybe Attending an event -->
+		<div class='box box-space'>
+			<a name='Maybe Attending an event'></a>
+			<h3>Maybe Attending An Event</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Maybe Attending an event -->
+
+		<!-- Start Declining an event -->
+		<div class='box box-space'>
+			<a name='Declining an event'></a>
+			<h3>Declining An Event</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Declining an event -->
+
+		<!-- Start Searching -->
+		<div class='box box-space'>
+			<a name='Searching'></a>
+			<h3>Searching</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Searching -->
+
+		
+		<!-- Start Login/Logout Option -->
+		<a name='Login/Logout Option'></a>
+		<div class='box box-space'>
+			<h3>Login/Logout Option</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Login/Logout Option -->
+
+		<!-- Start Getting user information -->
+		<a name='Getting user information'></a>
+		<div class='box box-space'>
+			<h3>Getting User Information</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user information -->
+
+		<!-- Start Getting user friends -->
+		<a name='Getting user friends'></a>
+		<div class='box box-space'>
+			<h3>Getting User Friends</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user friends -->
+
+		<!-- Start Getting user wall feed -->
+		<a name='Getting user wall feed'></a>
+		<div class='box box-space'>
+			<h3>Getting User Wall Feed</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user wall feed -->
+
+		<!-- Start Getting user likes -->
+		<a name='Getting user likes'></a>
+		<div class='box box-space'>
+			<h3>Getting User Likes</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user likes -->
+
+		<!-- Start Getting user movies -->
+		<a name='Getting user movies'></a>
+		<div class='box box-space'>
+			<h3>Getting User Movies</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user movies -->
+
+		<!-- Start Getting user music -->
+		<a name='Getting user music'></a>
+		<div class='box box-space'>
+			<h3>Getting User Music</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user music -->
+
+		<!-- Start Getting user books -->
+		<a name='Getting user books'></a>
+		<div class='box box-space'>
+			<h3>Getting User Books</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user books -->
+
+		<!-- Start Getting user notes -->
+		<a name='Getting user notes'></a>
+		<div class='box box-space'>
+			<h3>Getting User Notes</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user notes -->
+
+		<!-- Start Getting user permissions -->
+		<a name='Getting user permissions'></a>
+		<div class='box box-space'>
+			<h3>Getting User Permissions</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user permissions -->
+
+		<!-- Start Getting user photo tags -->
+		<a name='Getting user photo tags'></a>
+		<div class='box box-space'>
+			<h3>Getting User Photo Tags</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user photo tags -->
+
+		<!-- Start Getting user photo albums -->
+		<a name='Getting user photo albums'></a>
+		<div class='box box-space'>
+			<h3>Getting User Photo Albums</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user photo albums -->
+
+		<!-- Start Getting user video tags -->
+		<a name='Getting user video tags'></a>
+		<div class='box box-space'>
+			<h3>Getting User Video Tags</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user video tags -->
+
+		<!-- Start Getting user video uploads -->
+		<a name='Getting user video uploads'></a>
+		<div class='box box-space'>
+			<h3>Getting User Video Uploads</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user video uploads -->
+
+		<!-- Start Getting user events -->
+		<a name='Getting user events'></a>
+		<div class='box box-space'>
+			<h3>Getting User Events</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user events -->
+
+		<!-- Start Getting user groups -->
+		<a name='Getting user groups'></a>
+		<div class='box box-space'>
+			<h3>Getting User Groups</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user groups -->
+
+		<!-- Start Getting user checkins -->
+		<a name='Getting user checkins'></a>
+		<div class='box box-space'>
+			<h3>Getting User Checkins</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user checkins -->
+
+		<!-- Start Getting user locations -->
+		<a name='Getting user locations'></a>
+		<div class='box box-space'>
+			<h3>Getting User Locations</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Getting user locations -->
+
+		<!-- Start Adding new wall posts -->
+		<a name='Adding new wall posts'></a>
+		<div class='box box-space'>
+			<h3>Adding New Wall Posts</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new wall posts -->
+
+		<!-- Start Adding new notes -->
+		<a name='Adding new notes'></a>
+		<div class='box box-space'>
+			<h3>Adding New Notes</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new notes -->
+
+		<!-- Start Adding new links -->
+		<a name='Adding new links'></a>
+		<div class='box box-space'>
+			<h3>Adding New Links</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new links -->
+
+		<!-- Start Adding new comments -->
+		<a name='Adding new comments'></a>
+		<div class='box box-space'>
+			<h3>Adding New Comments</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new comments -->
+
+		<!-- Start Adding new likes -->
+		<a name='Adding new likes'></a>
+		<div class='box box-space'>
+			<h3>Adding New Likes</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new likes -->
+
+		<!-- Start Adding new events -->
+		<a name='Adding new events'></a>
+		<div class='box box-space'>
+			<h3>Adding New Events</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new events -->
+
+		<!-- Start Adding new albums -->
+		<a name='Adding new albums'></a>
+		<div class='box box-space'>
+			<h3>Adding New Albums</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new albums -->
+
+		<!-- Start Adding new photos -->
+		<a name='Adding new photos'></a>
+		<div class='box box-space'>
+			<h3>Adding New Photos</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new photos -->
+
+		<!-- Start Adding new checkins -->
+		<a name='Adding new checkins'></a>
+		<div class='box box-space'>
+			<h3>Adding New Checkins</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Adding new checkins -->
+
+		<!-- Start Attending an event -->
+		<a name='Attending an event'></a>
+		<div class='box box-space'>
+			<h3>Attending An Event</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Attending an event -->
+
+		<!-- Start Maybe Attending an event -->
+		<a name='Maybe Attending an event'></a>
+		<div class='box box-space'>
+			<h3>Maybe Attending An Event</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Maybe Attending an event -->
+
+		<!-- Start Declining an event -->
+		<a name='Declining an event'></a>
+		<div class='box box-space'>
+			<h3>Declining An Event</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Declining an event -->
+
+		<!-- Start Searching -->
+		<a name='Searching'></a>
+		<div class='box box-space'>
+			<h3>Searching</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Searching -->
+		
+		<!-- Start Searching -->
+		<a name='reset'></a>
+		<div class='box box-space'>
+			<h3>Clearing Session / Resetting</h3>
+			<p>
+				notes
+			</p>
+		</div>
+		<!-- End Searching -->
+
+
+		
+		<div id="cr">
+			Copyright &copy; <script type="text/javascript">var theDate=new Date();document.write(theDate.getFullYear())</script><noscript>2012</noscript> <a href="http://vadimg.com/">Vincent Gabriel</a>
+		</div>
+		
+	</body>
+</html>
