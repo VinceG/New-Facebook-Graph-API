@@ -15,12 +15,13 @@
  * under the License.
  */
 
-require '../src/facebook.php';
+require '../FB.php';
+
 
 // Create our Application instance (replace this with your appId and secret).
 $facebook = new Facebook(array(
-  'appId'  => '344617158898614',
-  'secret' => '6dc8ac871858b34798bc2488200e503d',
+  'appId'  => '340730982629661',
+  'secret' => 'dd9c20718654c9c6e7ada4f98057d58f',
 ));
 
 // Get User ID
