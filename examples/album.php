@@ -6,12 +6,12 @@ if(!$user) {
 }
 
 if(isset($_POST['POSTTOWALL'])) {
-	$wallPost = $facebook->addWallPost(array('message' => $_POST['message'] ? $_POST['message'] : 'blah'));
+	$wallPost = $facebook->addAlbum(array('name' => $_POST['message'] ? $_POST['message'] : 'blah'));
 	if($facebook->isSuccess()) {
 		echo '<pre>';
-		echo 'post created. ID:' . $facebook->getId();
+		echo 'album created. ID:' . $facebook->getId();
 	} else {
-		echo $facebook->getError();
+		echo $facebook->getErrorMessage();
 	}
 	
 }

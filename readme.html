@@ -7,7 +7,7 @@
 		<title>Facebook API Wrapper 2.0</title>
 		<style type="text/css" media="all">
 			html, body, h1, h2, h3, h4, div, p, dl { margin: 0; padding: 0; }
-			body { background: #021e2c; color: #fff; font-size: 12px; font-family: Verdana, Arial, "Trebuchet MS", "Times New Roman"; width: 800px; margin: auto; }
+			body { background: #021e2c; color: #fff; font-size: 12px; font-family: Verdana, Arial, "Trebuchet MS", "Times New Roman"; width: 80%; margin: auto; }
 			h1, h2, h3, h4 { font-weight: normal; }
 			a { color: #444; text-decoration: underline; } a:hover { text-decoration: underline; }
 			#header { background: #021e2c; padding: 20px; color: #f1f1f1; font-size: 22px; border-bottom: 1px solid #222; }
@@ -18,7 +18,7 @@
 			.box dt, dd { padding: 3px 0; border-bottom: 1px solid #e1e1e1; }
 			.box dt { float: left; font-weight: bold; }
 			.box dd { text-align: right; }
-			.box p { color: #444; padding: 2px; }
+			.box p { color: #444; padding: 2px; line-height: 2em;}
 			.box textarea {display: block; padding: 5px; margin-bottom: 5px; margin-top: 5px; width: 90%; }
 			.box-space {margin-top: 20px; margin-bottom: 20px; }
 			#content { padding: 20px; }
@@ -29,15 +29,12 @@
 			#cr { position: fixed; bottom: 20px; right: 20px; color: #818f96; }
 			#cr a { color: #818f96; }
 			ul { color: #444; }
+			pre {text-align: left; color: #000;white-space: pre-wrap;
+			 white-space: -moz-pre-wrap;
+			 white-space: -o-pre-wrap;display: block;
+			 padding: 0.5em 1em;
+			 border: 1px solid #bebab0;}
 		</style>
-		<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
-		<type="text/javascript">
-		$(document).ready(function() {
-			$('textarea').each(function(i) {
-				console.log(1);
-			});
-		});	
-		</script>
 	</head>
 	<body>
 		<div id="header">Facebook API Wrapper 2.0</div>
@@ -47,9 +44,10 @@
 				<dt>Title:</dt>
 					<dd>Facebook API Wrapper 2.0</dd>
 				<dt>Version:</dt>
-					<dd>2.0</dd>
+					<dd>2.0.0</dd>	
 				<dt>Requirements:</dt>
 					<dd>PHP > 5.1</dd>
+					<dd>PHP Curl library</dd>
 				<dt>Author:</dt>
 					<dd>Vincent Gabriel</dd>
 				<dt>Website:</dt>
@@ -60,11 +58,18 @@
 			<p>
 				This is the new Facebook API Wrapper that utilizes the updated Facebook PHP SDK v3.0 .
 			</p>
+			
+			<h3>Change Log</h3>
+            
+			<p>
+				
+			</p>
 		
 			<br />
 			<h3>Quick Feature List</h3>
             
 			<ul>
+				<li><a href='#init'>Initiating Class</a></li>
 				<li><a href='#Login/Logout Option'>Login/Logout Option</a></li>
 				<li><a href='#Getting user information'>Getting user information</a></li>
 				<li><a href='#Getting user friends'>Getting user friends</a></li>
@@ -115,17 +120,17 @@
 			<h4>Permissions</h4>
 			<p>
 				Each pushing method (By pushing i mean method that pushes data into facebook not retrieving) requires certain user permissions to work properly. In most cases the permission 'publish_stream' is enough but sometimes there are certain operations that require more then that. For example to create user checkins you need the
-				'publish_checkins' user extended permissions, Referrer to the reference section above to see the list of user permissions and extended permissions. <br /><br />
+				'publish_checkins' user extended permissions, Referrer to the reference section above to see the list of user permissions and extended permissions. <br />
 				In the actual class itself the 'FB' class you'll see a property '@permission' which is normally referees to the methods visibility in PHP (public, protected, private) but in this case it will show a list of the required facebook permission to have in order to use it.
 			</p>
 			
 			<h4>Method Parameters</h4>
 			<p>
-				Each method both reading and pushing accepts certain parameters. In most cases the first parameter is an array of parameters that specific method accepts, followed by the second parameter which is the user or object id that is set to null by default and is not required.<br /><br />
-				For example <a href='#Adding new wall posts'>addWallPost($params, $objectId)</a> accepts an array as the first parameter which should have the following keys: message, picture, link, name, caption, description, source, place, tags. Some are required (message, name) others are optional.<br /><br />
-				Unfortunately facebook does not show which are required and which are not so the more values you set the better.<br /><br />
-				Second parameter is optional and represents the user id or object id you would like to perform the operation on. In this case the objectId is the user id you would like to post the message on his wall, if you leave it as null it will use the current logged in user as the objectId, if you pass in a number as the second parameter it will try to post the message to that user profile (the user needs to have the required permissions that in this case posting a wall post requires the 'publish_stream' permissions), In other cases/methods the second argument is not the user id but an object id.<br /><br />
-				For example when you want to add a comment to a certain post you'd use the <a href='#Adding new comments'>addComment($params, $objectId)</a> the objectId is the post id (if you have it stored somewhere or you'd just posted a new post on a users wall and you have it's id).<br /><br />
+				Each method both reading and pushing accepts certain parameters. In most cases the first parameter is an array of parameters that specific method accepts, followed by the second parameter which is the user or object id that is set to null by default and is not required.<br />
+				For example <a href='#Adding new wall posts'>addWallPost($params, $objectId)</a> accepts an array as the first parameter which should have the following keys: message, picture, link, name, caption, description, source, place, tags. Some are required (message, name) others are optional.<br />
+				Unfortunately facebook does not show which are required and which are not so the more values you set the better.<br />
+				Second parameter is optional and represents the user id or object id you would like to perform the operation on. In this case the objectId is the user id you would like to post the message on his wall, if you leave it as null it will use the current logged in user as the objectId, if you pass in a number as the second parameter it will try to post the message to that user profile (the user needs to have the required permissions that in this case posting a wall post requires the 'publish_stream' permissions), In other cases/methods the second argument is not the user id but an object id.<br />
+				For example when you want to add a comment to a certain post you'd use the <a href='#Adding new comments'>addComment($params, $objectId)</a> the objectId is the post id (if you have it stored somewhere or you'd just posted a new post on a users wall and you have it's id).<br />
 				To be certain referrer to the class API documentation to see the method parameters and read the description to see what keys it accepts in the first argument array and what is the objectId referees to in that case. 
 			</p>
 			
@@ -136,27 +141,130 @@
 			
 			<h4>Checking Result</h4>
 			<p>
-				Even though it covered in the actual 'FB' class and each example file shows the way to get the result and see if the operation was successful or not, I'll quickly cover how to check if the operation you tried to perform was successful or not.<br /><br />
-				This is mostly used when trying to push data as opposed to retrieve data since when retrieving data you'll get an array with the info, if the operation failed the array will be empty.<br /><br />
+				Even though it covered in the actual 'FB' class and each example file shows the way to get the result and see if the operation was successful or not, I'll quickly cover how to check if the operation you tried to perform was successful or not.<br />
+				This is mostly used when trying to push data as opposed to retrieve data since when retrieving data you'll get an array with the info, if the operation failed the array will be empty.<br />
 				There are several convenient methods you can use to get the result you'd expect. For instance if we performed an operation for this example purposes we will use <a href='#Adding new wall posts'>addWallPost($params, $objectId)</a>.
 				
-				<textarea readonly='readonly'>
-					test
-				</textarea>
+				<pre>
+$wallPost = $facebook->addWallPost(array('message' => 'some message'));
+if($facebook->isSuccess()) {
+	echo 'post created. ID:' . $facebook->getId();
+} else {
+	echo $facebook->getErrorMessage();
+}
+				</pre>
+				
+			</p>
+			
+			<p>
+				After performing a certain operation you can check if it was successful or not and getting the info you would like to get by using the following methods:
+				
+<pre>
+$facebook->isSuccess() // check if last task was successful
+$facebook->isError() // check if the last operation failed
+$facebook->getError() // return an array with the last operation error info
+$facebook->getErrorCode() // return a string representation of the last error code
+$facebook->getErrorMessage() // return a string representation of the last error message
+$facebook->getResult() // return an array of the result from the last operation
+$facebook->getId() // return the id of the newly created object, usually after performing a push operation you'll get an id
+</pre>	
 				
 			</p>
 			
 		</div>
 		<!-- end box -->
 		
+		<!-- Start Login/Logout Option -->
+		<div class='box box-space'>
+			<a name='init'></a>
+			<h3>Initiating Class</h3>
+			
+			
+			<pre>
+// Require the only class you will be needing				
+require 'FB.php';
+
+// Create our Application instance (replace this with your appId and secret).
+$facebook = new FB(array(
+  'appId'  => 'xxxxxxxx', // app id
+  'secret' => 'xxxxxxxx', // app secret
+  'fileUpload' => true, // optional if you want to allow file uploads, used when uploading photos to albums
+));				
+			</pre>
+			
+		</div>
+		<!-- End Login/Logout Option -->
 		
 		<!-- Start Login/Logout Option -->
 		<div class='box box-space'>
 			<a name='Login/Logout Option'></a>
 			<h3>Login/Logout Option</h3>
-			<p>
-				notes
-			</p>
+
+<pre>
+// Get User ID
+$user = $facebook->getUser();
+
+// We may or may not have this data based on whether the user is logged in.
+//
+// If we have a $user id here, it means we know the user is logged into
+// Facebook, but we don't know if the access token is valid. An access
+// token is invalid if the user logged out of Facebook.
+
+if ($user) {
+  try {
+    // Proceed knowing you have a logged in user who's authenticated.
+    $user_profile = $facebook->api('/me');
+  } catch (FacebookApiException $e) {
+    error_log($e);
+    $user = null;
+  }
+}
+
+// Login or logout url will be needed depending on current user state.
+if ($user) {
+  $logoutUrl = $facebook->getLogoutUrl();
+} else {
+  	$loginUrl   = $facebook->getLoginUrl(
+	    array(
+        	'scope'         => 'email,offline_access,publish_stream,user_birthday,user_location,user_work_history,user_about_me,user_hometown',
+        )
+	    );
+}
+</pre>
+
+		<p>
+			In the above code we check if the user logged in before, if he was then we will have his user id. If he wasn't then we will show him the login url. <br />
+			The login url accepts an array of parameters the important ones are 'scope' and 'redirect_uri' the former is a comma separated list of permission you would like the user to allow you to access to. The later is the url you would like to redirect the user to after he allows the permissions.<br />
+			the 'redirect_uri' must be under the same domain name of the application domain name settings that were set when the application was created in the facebook site. Meaning when creating a new application facebook requires you to enter a domain name that will be used with that application lets say domain.com when setting 'redirect_uri' you need to make sure
+			it is located under the same domain name or sub-domain. if you set 'redirect_uri' as 'afterlogin.domain.com' then it will work if you set it to 'someotherdomain.com/login' this won't work and the user will see an error message when he clicks the login button.<br />
+			
+			When you choose to set the 'scope' which is the list of permissions you want to get from the user you need to make sure you set all the permission you'll be using if you don't you'll need to show the login button to the user again after adding new permissions to the 'scope' or you won't be able to perform the actions that require those new permissions.<br />
+			You can clear the user state and by that forcing him to login again and giving those new updated permissions you require. 
+		</p>
+
+		<p>
+			By default the user access token and data returned after logging in stored in the session, you can though override the methods: setPersistentData, getPersistentData, clearPersistentData, clearAllPersistentData<br />
+			After logging in you'll get the user access info that will be stored in the session and will look similar to this:<br />
+		</p>
+<pre>
+Array
+(
+    [fb_344617158898614_state] => XXXXXXXXXXXXXXX
+    [fb_340730982629661_code] => xXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxX
+    [fb_340730982629661_access_token] => xXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxX
+    [fb_340730982629661_user_id] => xxxxxxxxxxxx
+)
+</pre>
+		
+		<p>
+		You might want to store the access token for later use if you want to perform user operations across sessions. You can then use $facebook->getAccessToken() and $facebook->setAccessToken($token);
+
+		</p>
+		
+		<p>
+			In the examples below all the get* methods have an objectId as an argument, by default it's null and it will use the current logged in user.
+		</p>
+
 		</div>
 		<!-- End Login/Logout Option -->
 
@@ -164,9 +272,11 @@
 		<div class='box box-space'>
 			<a name='Getting user information'></a>
 			<h3>Getting User Information</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getUserInfo(); // get current logged in user public info
+			$facebook->getUserInfo('xxxxx'); // get xxx user public info
+			$facebook->getObjectInfo($objectId); // get object public info for example $facebook->getObjectInfo('cocacola');
+			</pre>
 		</div>
 		<!-- End Getting user information -->
 
@@ -174,9 +284,9 @@
 		<div class='box box-space'>
 			<a name='Getting user friends'></a>
 			<h3>Getting User Friends</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getFriends();
+			</pre>
 		</div>
 		<!-- End Getting user friends -->
 
@@ -184,9 +294,9 @@
 		<div class='box box-space'>
 			<a name='Getting user wall feed'></a>
 			<h3>Getting User Wall Feed</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getFeed();
+			</pre>
 		</div>
 		<!-- End Getting user wall feed -->
 
@@ -194,9 +304,9 @@
 		<div class='box box-space'>
 			<a name='Getting user likes'></a>
 			<h3>Getting User Likes</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getLikes();
+			</pre>
 		</div>
 		<!-- End Getting user likes -->
 
@@ -204,9 +314,9 @@
 		<div class='box box-space'>
 			<a name='Getting user movies'></a>
 			<h3>Getting User Movies</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getMovies();
+			</pre>
 		</div>
 		<!-- End Getting user movies -->
 
@@ -214,9 +324,9 @@
 		<div class='box box-space'>
 			<a name='Getting user music'></a>
 			<h3>Getting User Music</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getMusic();
+			</pre>
 		</div>
 		<!-- End Getting user music -->
 
@@ -224,9 +334,9 @@
 		<div class='box box-space'>
 			<a name='Getting user books'></a>
 			<h3>Getting User Books</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getBooks();
+			</pre>
 		</div>
 		<!-- End Getting user books -->
 
@@ -234,9 +344,9 @@
 		<div class='box box-space'>
 			<a name='Getting user notes'></a>
 			<h3>Getting User Notes</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getNotes();
+			</pre>
 		</div>
 		<!-- End Getting user notes -->
 
@@ -244,9 +354,9 @@
 		<div class='box box-space'>
 			<a name='Getting user permissions'></a>
 			<h3>Getting User Permissions</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getPermissions();
+			</pre>
 		</div>
 		<!-- End Getting user permissions -->
 
@@ -254,9 +364,9 @@
 		<div class='box box-space'>
 			<a name='Getting user photo tags'></a>
 			<h3>Getting User Photo Tags</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getPhotos();
+			</pre>
 		</div>
 		<!-- End Getting user photo tags -->
 
@@ -264,9 +374,9 @@
 		<div class='box box-space'>
 			<a name='Getting user photo albums'></a>
 			<h3>Getting User Photo Albums</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getAlbums();
+			</pre>
 		</div>
 		<!-- End Getting user photo albums -->
 
@@ -274,9 +384,9 @@
 		<div class='box box-space'>
 			<a name='Getting user video tags'></a>
 			<h3>Getting User Video Tags</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getVideos();
+			</pre>
 		</div>
 		<!-- End Getting user video tags -->
 
@@ -284,9 +394,9 @@
 		<div class='box box-space'>
 			<a name='Getting user video uploads'></a>
 			<h3>Getting User Video Uploads</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getVideos();
+			</pre>
 		</div>
 		<!-- End Getting user video uploads -->
 
@@ -294,9 +404,9 @@
 		<div class='box box-space'>
 			<a name='Getting user events'></a>
 			<h3>Getting User Events</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getEvents();
+			</pre>
 		</div>
 		<!-- End Getting user events -->
 
@@ -304,9 +414,9 @@
 		<div class='box box-space'>
 			<a name='Getting user groups'></a>
 			<h3>Getting User Groups</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getGroups();
+			</pre>
 		</div>
 		<!-- End Getting user groups -->
 
@@ -314,9 +424,9 @@
 		<div class='box box-space'>
 			<a name='Getting user checkins'></a>
 			<h3>Getting User Checkins</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getCheckins();
+			</pre>
 		</div>
 		<!-- End Getting user checkins -->
 
@@ -324,9 +434,9 @@
 		<div class='box box-space'>
 			<a name='Getting user locations'></a>
 			<h3>Getting User Locations</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->getLocations();
+			</pre>
 		</div>
 		<!-- End Getting user locations -->
 
@@ -334,9 +444,17 @@
 		<div class='box box-space'>
 			<a name='Adding new wall posts'></a>
 			<h3>Adding New Wall Posts</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$operationResult = $facebook->addWallPost($params); // perform operation on the current logged in user
+			// $operationResult = $facebook->addWallPost($params, $objectId); // perform operation on a certain objectId
+			if($facebook->isSuccess()) {
+				// Operation was successful
+				// Use $facebook->getId(), or $facebook->getResult() or $operationResult to access the returned data
+			} else {
+				// Operation was not successful
+				// user $facebook->getError() or $facebook->getErrorMessage() to access the error info
+			}
+			</pre>
 		</div>
 		<!-- End Adding new wall posts -->
 
@@ -344,9 +462,17 @@
 		<div class='box box-space'>
 			<a name='Adding new notes'></a>
 			<h3>Adding New Notes</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$operationResult = $facebook->addNote($params); // perform operation on the current logged in user
+			// $operationResult = $facebook->addNote($params, $objectId); // perform operation on a certain objectId
+			if($facebook->isSuccess()) {
+				// Operation was successful
+				// Use $facebook->getId(), or $facebook->getResult() or $operationResult to access the returned data
+			} else {
+				// Operation was not successful
+				// user $facebook->getError() or $facebook->getErrorMessage() to access the error info
+			}
+			</pre>
 		</div>
 		<!-- End Adding new notes -->
 
@@ -354,9 +480,17 @@
 		<div class='box box-space'>
 			<a name='Adding new links'></a>
 			<h3>Adding New Links</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$operationResult = $facebook->addLink($params); // perform operation on the current logged in user
+			// $operationResult = $facebook->addLink($params, $objectId); // perform operation on a certain objectId
+			if($facebook->isSuccess()) {
+				// Operation was successful
+				// Use $facebook->getId(), or $facebook->getResult() or $operationResult to access the returned data
+			} else {
+				// Operation was not successful
+				// user $facebook->getError() or $facebook->getErrorMessage() to access the error info
+			}
+			</pre>
 		</div>
 		<!-- End Adding new links -->
 
@@ -364,9 +498,16 @@
 		<div class='box box-space'>
 			<a name='Adding new comments'></a>
 			<h3>Adding New Comments</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$operationResult = $facebook->addComment($params, $objectId); // perform operation on a certain objectId, objectId required
+			if($facebook->isSuccess()) {
+				// Operation was successful
+				// Use $facebook->getId(), or $facebook->getResult() or $operationResult to access the returned data
+			} else {
+				// Operation was not successful
+				// user $facebook->getError() or $facebook->getErrorMessage() to access the error info
+			}
+			</pre>
 		</div>
 		<!-- End Adding new comments -->
 
@@ -374,9 +515,16 @@
 		<div class='box box-space'>
 			<a name='Adding new likes'></a>
 			<h3>Adding New Likes</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$operationResult = $facebook->like($objectId); // perform operation on a certain objectId, objectId required
+			if($facebook->isSuccess()) {
+				// Operation was successful
+				// Use $facebook->getId(), or $facebook->getResult() or $operationResult to access the returned data
+			} else {
+				// Operation was not successful
+				// user $facebook->getError() or $facebook->getErrorMessage() to access the error info
+			}
+			</pre>
 		</div>
 		<!-- End Adding new likes -->
 
@@ -384,9 +532,17 @@
 		<div class='box box-space'>
 			<a name='Adding new events'></a>
 			<h3>Adding New Events</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$operationResult = $facebook->addEvent($params); // perform operation on the current logged in user
+			// $operationResult = $facebook->addEvent($params, $objectId); // perform operation on a certain objectId
+			if($facebook->isSuccess()) {
+				// Operation was successful
+				// Use $facebook->getId(), or $facebook->getResult() or $operationResult to access the returned data
+			} else {
+				// Operation was not successful
+				// user $facebook->getError() or $facebook->getErrorMessage() to access the error info
+			}
+			</pre>
 		</div>
 		<!-- End Adding new events -->
 
@@ -394,9 +550,17 @@
 		<div class='box box-space'>
 			<a name='Adding new albums'></a>
 			<h3>Adding New Albums</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$operationResult = $facebook->addAlbum($params); // perform operation on the current logged in user
+			// $operationResult = $facebook->addAlbum($params, $objectId); // perform operation on a certain objectId
+			if($facebook->isSuccess()) {
+				// Operation was successful
+				// Use $facebook->getId(), or $facebook->getResult() or $operationResult to access the returned data
+			} else {
+				// Operation was not successful
+				// user $facebook->getError() or $facebook->getErrorMessage() to access the error info
+			}
+			</pre>
 		</div>
 		<!-- End Adding new albums -->
 
@@ -404,9 +568,17 @@
 		<div class='box box-space'>
 			<a name='Adding new photos'></a>
 			<h3>Adding New Photos</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$operationResult = $facebook->addPhoto(array('message' => 'some message', 'image' => '@' . FILE_LOCATION), $_POST['albumid'], $objectId); // perform operation on a certain objectId, objectId is required in this case it's the album id
+			// FILE_LOCATION must be on the server see demo photo.php
+			if($facebook->isSuccess()) {
+				// Operation was successful
+				// Use $facebook->getId(), or $facebook->getResult() or $operationResult to access the returned data
+			} else {
+				// Operation was not successful
+				// user $facebook->getError() or $facebook->getErrorMessage() to access the error info
+			}
+			</pre>
 		</div>
 		<!-- End Adding new photos -->
 
@@ -414,9 +586,17 @@
 		<div class='box box-space'>
 			<a name='Adding new checkins'></a>
 			<h3>Adding New Checkins</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$operationResult = $facebook->addCheckin($params); // perform operation on the current logged in user
+			// $operationResult = $facebook->addCheckin($params, $objectId); // perform operation on a certain objectId
+			if($facebook->isSuccess()) {
+				// Operation was successful
+				// Use $facebook->getId(), or $facebook->getResult() or $operationResult to access the returned data
+			} else {
+				// Operation was not successful
+				// user $facebook->getError() or $facebook->getErrorMessage() to access the error info
+			}
+			</pre>
 		</div>
 		<!-- End Adding new checkins -->
 
@@ -424,9 +604,16 @@
 		<div class='box box-space'>
 			<a name='Attending an event'></a>
 			<h3>Attending An Event</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$operationResult = $facebook->eventAttending($objectId); // perform operation on a certain objectId, objectId is required it's the even id
+			if($facebook->isSuccess()) {
+				// Operation was successful
+				// Use $facebook->getId(), or $facebook->getResult() or $operationResult to access the returned data
+			} else {
+				// Operation was not successful
+				// user $facebook->getError() or $facebook->getErrorMessage() to access the error info
+			}
+			</pre>
 		</div>
 		<!-- End Attending an event -->
 
@@ -434,9 +621,16 @@
 		<div class='box box-space'>
 			<a name='Maybe Attending an event'></a>
 			<h3>Maybe Attending An Event</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$operationResult = $facebook->eventMaybe($objectId); // perform operation on a certain objectId, objectId is required it's the even id
+			if($facebook->isSuccess()) {
+				// Operation was successful
+				// Use $facebook->getId(), or $facebook->getResult() or $operationResult to access the returned data
+			} else {
+				// Operation was not successful
+				// user $facebook->getError() or $facebook->getErrorMessage() to access the error info
+			}
+			</pre>
 		</div>
 		<!-- End Maybe Attending an event -->
 
@@ -444,9 +638,16 @@
 		<div class='box box-space'>
 			<a name='Declining an event'></a>
 			<h3>Declining An Event</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$operationResult = $facebook->eventDecline($objectId); // perform operation on a certain objectId, objectId is required it's the even id
+			if($facebook->isSuccess()) {
+				// Operation was successful
+				// Use $facebook->getId(), or $facebook->getResult() or $operationResult to access the returned data
+			} else {
+				// Operation was not successful
+				// user $facebook->getError() or $facebook->getErrorMessage() to access the error info
+			}
+			</pre>
 		</div>
 		<!-- End Declining an event -->
 
@@ -454,330 +655,30 @@
 		<div class='box box-space'>
 			<a name='Searching'></a>
 			<h3>Searching</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$operationResult = $facebook->search($searchQuery, $type); // perform search operation
+			// searchQuery is the text you would like to search in facebook
+			// type is the type of objects to search for. for example: user, post, group, event, page etc...
+			if($facebook->isSuccess()) {
+				// Operation was successful
+				// Use $facebook->getId(), or $facebook->getResult() or $operationResult to access the returned data
+			} else {
+				// Operation was not successful
+				// user $facebook->getError() or $facebook->getErrorMessage() to access the error info
+			}
+			</pre>
 		</div>
 		<!-- End Searching -->
 
-		
-		<!-- Start Login/Logout Option -->
-		<a name='Login/Logout Option'></a>
-		<div class='box box-space'>
-			<h3>Login/Logout Option</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Login/Logout Option -->
-
-		<!-- Start Getting user information -->
-		<a name='Getting user information'></a>
-		<div class='box box-space'>
-			<h3>Getting User Information</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user information -->
-
-		<!-- Start Getting user friends -->
-		<a name='Getting user friends'></a>
-		<div class='box box-space'>
-			<h3>Getting User Friends</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user friends -->
-
-		<!-- Start Getting user wall feed -->
-		<a name='Getting user wall feed'></a>
-		<div class='box box-space'>
-			<h3>Getting User Wall Feed</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user wall feed -->
-
-		<!-- Start Getting user likes -->
-		<a name='Getting user likes'></a>
-		<div class='box box-space'>
-			<h3>Getting User Likes</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user likes -->
-
-		<!-- Start Getting user movies -->
-		<a name='Getting user movies'></a>
-		<div class='box box-space'>
-			<h3>Getting User Movies</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user movies -->
-
-		<!-- Start Getting user music -->
-		<a name='Getting user music'></a>
-		<div class='box box-space'>
-			<h3>Getting User Music</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user music -->
-
-		<!-- Start Getting user books -->
-		<a name='Getting user books'></a>
-		<div class='box box-space'>
-			<h3>Getting User Books</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user books -->
-
-		<!-- Start Getting user notes -->
-		<a name='Getting user notes'></a>
-		<div class='box box-space'>
-			<h3>Getting User Notes</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user notes -->
-
-		<!-- Start Getting user permissions -->
-		<a name='Getting user permissions'></a>
-		<div class='box box-space'>
-			<h3>Getting User Permissions</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user permissions -->
-
-		<!-- Start Getting user photo tags -->
-		<a name='Getting user photo tags'></a>
-		<div class='box box-space'>
-			<h3>Getting User Photo Tags</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user photo tags -->
-
-		<!-- Start Getting user photo albums -->
-		<a name='Getting user photo albums'></a>
-		<div class='box box-space'>
-			<h3>Getting User Photo Albums</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user photo albums -->
-
-		<!-- Start Getting user video tags -->
-		<a name='Getting user video tags'></a>
-		<div class='box box-space'>
-			<h3>Getting User Video Tags</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user video tags -->
-
-		<!-- Start Getting user video uploads -->
-		<a name='Getting user video uploads'></a>
-		<div class='box box-space'>
-			<h3>Getting User Video Uploads</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user video uploads -->
-
-		<!-- Start Getting user events -->
-		<a name='Getting user events'></a>
-		<div class='box box-space'>
-			<h3>Getting User Events</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user events -->
-
-		<!-- Start Getting user groups -->
-		<a name='Getting user groups'></a>
-		<div class='box box-space'>
-			<h3>Getting User Groups</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user groups -->
-
-		<!-- Start Getting user checkins -->
-		<a name='Getting user checkins'></a>
-		<div class='box box-space'>
-			<h3>Getting User Checkins</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user checkins -->
-
-		<!-- Start Getting user locations -->
-		<a name='Getting user locations'></a>
-		<div class='box box-space'>
-			<h3>Getting User Locations</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Getting user locations -->
-
-		<!-- Start Adding new wall posts -->
-		<a name='Adding new wall posts'></a>
-		<div class='box box-space'>
-			<h3>Adding New Wall Posts</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Adding new wall posts -->
-
-		<!-- Start Adding new notes -->
-		<a name='Adding new notes'></a>
-		<div class='box box-space'>
-			<h3>Adding New Notes</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Adding new notes -->
-
-		<!-- Start Adding new links -->
-		<a name='Adding new links'></a>
-		<div class='box box-space'>
-			<h3>Adding New Links</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Adding new links -->
-
-		<!-- Start Adding new comments -->
-		<a name='Adding new comments'></a>
-		<div class='box box-space'>
-			<h3>Adding New Comments</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Adding new comments -->
-
-		<!-- Start Adding new likes -->
-		<a name='Adding new likes'></a>
-		<div class='box box-space'>
-			<h3>Adding New Likes</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Adding new likes -->
-
-		<!-- Start Adding new events -->
-		<a name='Adding new events'></a>
-		<div class='box box-space'>
-			<h3>Adding New Events</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Adding new events -->
-
-		<!-- Start Adding new albums -->
-		<a name='Adding new albums'></a>
-		<div class='box box-space'>
-			<h3>Adding New Albums</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Adding new albums -->
-
-		<!-- Start Adding new photos -->
-		<a name='Adding new photos'></a>
-		<div class='box box-space'>
-			<h3>Adding New Photos</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Adding new photos -->
-
-		<!-- Start Adding new checkins -->
-		<a name='Adding new checkins'></a>
-		<div class='box box-space'>
-			<h3>Adding New Checkins</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Adding new checkins -->
-
-		<!-- Start Attending an event -->
-		<a name='Attending an event'></a>
-		<div class='box box-space'>
-			<h3>Attending An Event</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Attending an event -->
-
-		<!-- Start Maybe Attending an event -->
-		<a name='Maybe Attending an event'></a>
-		<div class='box box-space'>
-			<h3>Maybe Attending An Event</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Maybe Attending an event -->
-
-		<!-- Start Declining an event -->
-		<a name='Declining an event'></a>
-		<div class='box box-space'>
-			<h3>Declining An Event</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Declining an event -->
-
-		<!-- Start Searching -->
-		<a name='Searching'></a>
-		<div class='box box-space'>
-			<h3>Searching</h3>
-			<p>
-				notes
-			</p>
-		</div>
-		<!-- End Searching -->
 		
 		<!-- Start Searching -->
 		<a name='reset'></a>
 		<div class='box box-space'>
 			<h3>Clearing Session / Resetting</h3>
-			<p>
-				notes
-			</p>
+			<pre>
+			$facebook->clear(); // will reset all the saved session states, basically invokes clearAllPersistentData
+			$facebook->clearState($key); // deletes certain state from the persistent storage basically invokes clearPersistentData($key)
+			</pre>
 		</div>
 		<!-- End Searching -->
 

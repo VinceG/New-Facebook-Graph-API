@@ -26,13 +26,14 @@ if ($user) {
   }
 }
 
+
 // Login or logout url will be needed depending on current user state.
 if ($user) {
   $logoutUrl = $facebook->getLogoutUrl();
 } else {
   	$loginUrl   = $facebook->getLoginUrl(
 	            array(
-	                'scope'         => 'email,offline_access,publish_stream,user_birthday,user_location,user_work_history,user_about_me,user_hometown',
+	                'scope'         => 'read_stream,user_website,user_videos,user_status,user_religion_politics,user_relationship_details,user_relationships,user_questions,user_photos,user_notes,user_location,user_likes,user_interests,user_groups,user_events,user_education_history,user_checkins,user_activities,email,offline_access,publish_stream,user_birthday,user_location,user_work_history,user_about_me,user_hometown',
 	            )
 	    );
 }
