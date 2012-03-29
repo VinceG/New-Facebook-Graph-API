@@ -4,7 +4,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="author" content="Vincent Gabriel" />
 		<meta name="copyright" content="2012 Vincent Gabriel" />
-		<title>Facebook API Wrapper 2.0</title>
+		<title>Facebook API Wrapper 3.0</title>
 		<style type="text/css" media="all">
 			html, body, h1, h2, h3, h4, div, p, dl { margin: 0; padding: 0; }
 			body { background: #021e2c; color: #fff; font-size: 12px; font-family: Verdana, Arial, "Trebuchet MS", "Times New Roman"; width: 80%; margin: auto; }
@@ -37,14 +37,14 @@
 		</style>
 	</head>
 	<body>
-		<div id="header">Facebook API Wrapper 2.0</div>
+		<div id="header">Facebook API Wrapper 3.0</div>
 		<div id="fileInfo" class='box'>
 			<h3>Information</h3>
 			<dl>
 				<dt>Title:</dt>
-					<dd>Facebook API Wrapper 2.0</dd>
+					<dd>Facebook API Wrapper 3.0</dd>
 				<dt>Version:</dt>
-					<dd>2.0.0</dd>	
+					<dd>3.0.0</dd>	
 				<dt>Requirements:</dt>
 					<dd>PHP > 5.1</dd>
 					<dd>PHP Curl library</dd>
@@ -62,7 +62,28 @@
 			<h3>Change Log</h3>
             
 			<p>
-				
+				<ul>
+					<li>
+						3.0.1 - 29/03/2012
+						<ul>
+							<li>Added <a href='#extendingaccesstoken'>Extending Access Token</a></li>
+							<li>Added <a href='#Getting Accounts'>Getting Accounts</a></li>
+							<li>Added <a href='#Getting Ad Accounts'>Getting Ad Accounts</a></li>
+							<li>Added <a href='#Getting Activities'>Getting Activities</a></li>
+							<li>Added <a href='#Getting App Requests'>Getting App Requests</a></li>
+							<li>Added <a href='#Getting Family'>Getting Family</a></li>
+							<li>Added <a href='#Getting Friend List'>Getting Friend List</a></li>
+							<li>Added <a href='#Getting Friend Requests'>Getting Friend Requests</a></li>
+							<li>Added <a href='#Getting Games'>Getting Games</a></li>
+							<li>Added <a href='#Getting Home Feed'>Getting Home Feed</a></li>
+							<li>Added <a href='#Getting Inbox'>Getting Inbox</a></li>
+							<li>Added <a href='#Getting Outbox'>Getting Outbox</a></li>
+							<li>Added <a href='#Getting Notifications'>Getting Notifications</a></li>
+							<li>Added <a href='#Getting Statuses'>Getting Statuses</a></li>
+							<li>Added <a href='#Getting Tagged'>Getting Tagged</a></li>
+						</ul>
+					</li>
+				</ul>
 			</p>
 		
 			<br />
@@ -102,6 +123,23 @@
 				<li><a href='#Declining an event'>Declining an event</a></li>
 				<li><a href='#Searching'>Searching</a></li>
 				<li><a href='#reset'>Clearing Session / Resetting</a></li>
+				
+				
+				<li><a href='#extendingaccesstoken'>Extending Access Token</a> - 3.0.1</li>
+				<li><a href='#Getting Accounts'>Getting Accounts</a> - 3.0.1</li>
+				<li><a href='#Getting Ad Accounts'>GettingAd Accounts</a> - 3.0.1</li>
+				<li><a href='#Getting Activities'> Getting Activities</a> - 3.0.1</li>
+				<li><a href='#Getting App Requests'>Getting App Requests</a> - 3.0.1</li>
+				<li><a href='#Getting Family'>Getting Family</a> - 3.0.1</li>
+				<li><a href='#Getting Friend List'>Getting Friend List</a> - 3.0.1</li>
+				<li><a href='#Getting Friend Requests'>Getting Friend Requests</a> - 3.0.1</li>
+				<li><a href='#Getting Games'>Getting Games</a> - 3.0.1</li>
+				<li><a href='#Getting Home Feed'>Getting Home Feed</a> - 3.0.1</li>
+				<li><a href='#Getting Inbox'>Getting Inbox</a> - 3.0.1</li>
+				<li><a href='#Getting Outbox'>Getting Outbox</a> - 3.0.1</li>
+				<li><a href='#Getting Notifications'>Getting Notifications</a> - 3.0.1</li>
+				<li><a href='#Getting Statuses'>Getting Statuses</a> - 3.0.1</li>
+				<li><a href='#Getting Tagged'>Getting Tagged</a> - 3.0.1</li>
 			</ul>
 
 			<br />			
@@ -439,6 +477,149 @@ Array
 			</pre>
 		</div>
 		<!-- End Getting user locations -->
+		
+		
+
+		<!-- Start Getting Accounts -->
+		<div class='box box-space'>
+			<a name='Getting Accounts'></a>
+			<h3>Getting Accounts</h3>
+			<pre>
+			$facebook->getAccounts();
+			</pre>
+		</div>
+		<!-- End Getting Accounts -->
+	
+		<!-- Start Getting Ad Accounts -->
+		<div class='box box-space'>
+			<a name='Getting Ad Accounts'></a>
+			<h3>Getting Ad Accounts</h3>
+			<pre>
+			$facebook->getAdAccounts();
+			</pre>
+		</div>
+		<!-- End Getting Ad Accounts -->
+	
+		<!-- Start Getting Activities -->
+		<div class='box box-space'>
+			<a name='Getting Activities'></a>
+			<h3>Getting Activities</h3>
+			<pre>
+			$facebook->getActivities();
+			</pre>
+		</div>
+		<!-- End Getting Activities -->
+	
+		<!-- Start Getting App Requests -->
+		<div class='box box-space'>
+			<a name='Getting App Requests'></a>
+			<h3>Getting App Requests</h3>
+			<pre>
+			$facebook->getAppRequests();
+			</pre>
+		</div>
+		<!-- End Getting App Requests -->
+	
+		<!-- Start Getting Family -->
+		<div class='box box-space'>
+			<a name='Getting Family'></a>
+			<h3>Getting Family</h3>
+			<pre>
+			$facebook->getFamily();
+			</pre>
+		</div>
+		<!-- End Getting Family -->
+	
+		<!-- Start Getting Friend List -->
+		<div class='box box-space'>
+			<a name='Getting Friend List'></a>
+			<h3>Getting Friend List</h3>
+			<pre>
+			$facebook->getFriendList();
+			</pre>
+		</div>
+		<!-- End Getting Friend List -->
+	
+		<!-- Start Getting Friend Requests -->
+		<div class='box box-space'>
+			<a name='Getting Friend Requests'></a>
+			<h3>Getting Friend Requests</h3>
+			<pre>
+			$facebook->getFriendRequests();
+			</pre>
+		</div>
+		<!-- End Getting Friend Requests -->
+	
+		<!-- Start Getting Games -->
+		<div class='box box-space'>
+			<a name='Getting Games'></a>
+			<h3>Getting Games</h3>
+			<pre>
+			$facebook->getGames();
+			</pre>
+		</div>
+		<!-- End Getting Games -->
+	
+		<!-- Start Getting Home Feed -->
+		<div class='box box-space'>
+			<a name='Getting Home Feed'></a>
+			<h3>Getting Home Feed</h3>
+			<pre>
+			$facebook->getHomeFeed();
+			</pre>
+		</div>
+		<!-- End Getting Home Feed -->
+	
+		<!-- Start Getting Inbox -->
+		<div class='box box-space'>
+			<a name='Getting Inbox'></a>
+			<h3>Getting Inbox</h3>
+			<pre>
+			$facebook->getInbox();
+			</pre>
+		</div>
+		<!-- End Getting Inbox -->
+	
+		<!-- Start Getting Outbox -->
+		<div class='box box-space'>
+			<a name='Getting Outbox'></a>
+			<h3>Getting Outbox</h3>
+			<pre>
+			$facebook->getOutbox();
+			</pre>
+		</div>
+		<!-- End Getting Outbox -->
+	
+		<!-- Start Getting Notifications -->
+		<div class='box box-space'>
+			<a name='Getting Notifications'></a>
+			<h3>Getting Notifications</h3>
+			<pre>
+			$facebook->getNotifications();
+			</pre>
+		</div>
+		<!-- End Getting Notifications -->
+	
+		<!-- Start Getting Statuses -->
+		<div class='box box-space'>
+			<a name='Getting Statuses'></a>
+			<h3>Getting Statuses</h3>
+			<pre>
+			$facebook->getStatuses();
+			</pre>
+		</div>
+		<!-- End Getting Statuses -->
+	
+		<!-- Start Getting Tagged -->
+		<div class='box box-space'>
+			<a name='Getting Tagged'></a>
+			<h3>Getting Tagged</h3>
+			<pre>
+			$facebook->getTagged();
+			</pre>
+		</div>
+		<!-- End Getting Tagged -->
+
 
 		<!-- Start Adding new wall posts -->
 		<div class='box box-space'>
@@ -681,6 +862,35 @@ Array
 			</pre>
 		</div>
 		<!-- End Searching -->
+		
+		<!-- Start extending access token -->
+		<a name='extendingaccesstoken'></a>
+		<div class='box box-space'>
+			<h3>Extending Access Token</h3>
+			<p>
+				Facebook will be doing some changes to the API and starting May 1st 2012 it will remove the offline_access extended permission. <a href='https://developers.facebook.com/roadmap/offline-access-removal/' target='_blank'>Read More.</a>
+				<br />
+				With this method you will be able to extend the current users access token to be valid up to 60 days.
+			</p>
+			<pre>
+			$facebook->extenedAccessToken();
+			</pre>
+			
+			<p>Usage example (also available under /examples/extendedaccesstoken.php)</p>
+			<pre>
+			$result = $facebook->extenedAccessToken();
+			if($facebook->isSuccess()) {
+				echo "Access token extended:\n";
+				echo $facebook->getAccessToken();
+				var_dump($result);
+			} else {
+				echo "There was an error extending the access token:\n";
+				echo $facebook->getErrorMessage();
+			}
+			</pre>
+			
+		</div>
+		<!-- End extending access token -->
 
 
 		

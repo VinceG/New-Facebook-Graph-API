@@ -3,9 +3,10 @@ require '../FB.php';
 
 // Create our Application instance (replace this with your appId and secret).
 $facebook = new FB(array(
-  'appId'  => '340730982629661',
-  'secret' => 'dd9c20718654c9c6e7ada4f98057d58f',
+  'appId'  => '258805550879230',
+  'secret' => 'c7d18c9fbba5d5bcb39a2d3f3ed458ac',
 ));
+
 
 // Get User ID
 $user = $facebook->getUser();
@@ -33,7 +34,7 @@ if ($user) {
 } else {
   	$loginUrl   = $facebook->getLoginUrl(
 	            array(
-	                'scope'         => 'read_stream,user_website,user_videos,user_status,user_religion_politics,user_relationship_details,user_relationships,user_questions,user_photos,user_notes,user_location,user_likes,user_interests,user_groups,user_events,user_education_history,user_checkins,user_activities,email,offline_access,publish_stream,user_birthday,user_location,user_work_history,user_about_me,user_hometown',
+	                'scope'         => 'read_stream,user_website,user_videos,user_status,user_religion_politics,user_relationship_details,user_relationships,user_questions,user_photos,user_notes,user_location,user_likes,user_interests,user_groups,user_events,user_education_history,user_checkins,user_activities,email,publish_stream,user_birthday,user_location,user_work_history,user_about_me,user_hometown',
 	            )
 	    );
 }

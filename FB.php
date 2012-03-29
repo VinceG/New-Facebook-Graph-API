@@ -238,6 +238,146 @@ class FB extends Facebook {
 	}
 	
 	/**
+	 * Return array of accounts
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission 
+	 */
+	public function getAccounts($objectId=null) {
+		return $this->_apiGet('accounts', $objectId);
+	}
+	
+	/**
+	 * Return array of activities
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission 
+	 */
+	public function getActivities($objectId=null) {
+		return $this->_apiGet('activities', $objectId);
+	}
+	
+	/**
+	 * Return array of ad accounts
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission ads_management
+	 */
+	public function getAdAccounts($objectId=null) {
+		return $this->_apiGet('adaccounts', $objectId);
+	}
+	
+	/**
+	 * Return array of app requests
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission 
+	 */
+	public function getAppRequests($objectId=null) {
+		return $this->_apiGet('apprequests', $objectId);
+	}
+	
+	/**
+	 * Return array of family members
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission 
+	 */
+	public function getFamily($objectId=null) {
+		return $this->_apiGet('family', $objectId);
+	}
+	
+	/**
+	 * Return array of friend lists
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission 
+	 */
+	public function getFriendLists($objectId=null) {
+		return $this->_apiGet('friendlists', $objectId);
+	}
+	
+	/**
+	 * Return array of friend requests
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission read_requests
+	 */
+	public function getFriendRequests($objectId=null) {
+		return $this->_apiGet('friendrequests', $objectId);
+	}
+	
+	/**
+	 * Return array of games
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission 
+	 */
+	public function getGames($objectId=null) {
+		return $this->_apiGet('games', $objectId);
+	}
+	
+	/**
+	 * Return array of the home news feed
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission 
+	 */
+	public function getHomeFeed($objectId=null) {
+		return $this->_apiGet('home', $objectId);
+	}
+	
+	/**
+	 * Return array of inbox messages
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission read_mailbox
+	 */
+	public function getInbox($objectId=null) {
+		return $this->_apiGet('inbox', $objectId);
+	}
+	
+	/**
+	 * Return array of outbox messages
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission read_mailbox
+	 */
+	public function getOutbox($objectId=null) {
+		return $this->_apiGet('outbox', $objectId);
+	}
+	
+	/**
+	 * Return array of notifications
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission manage_notifications
+	 */
+	public function getNotifications($objectId=null) {
+		return $this->_apiGet('notifications', $objectId);
+	}
+	
+	/**
+	 * Return array of statuses
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission user_status
+	 */
+	public function getStatuses($objectId=null) {
+		return $this->_apiGet('statuses', $objectId);
+	}
+	
+	/**
+	 * Return array of tagged objects
+	 * @param string|int $objectId the object id can be the id or the name
+	 * @return array
+	 * @permission user_status
+	 */
+	public function getTagged($objectId=null) {
+		return $this->_apiGet('tagged', $objectId);
+	}
+	
+	/**
 	 * Return array of search results
 	 * @param string $query the search term you are searching for
 	 * @param string $type the type of object you are looking for for example: user, application, post, page, event, group etc...
@@ -509,16 +649,27 @@ class FB extends Facebook {
 		$this->clearAllPersistentData();
 	}
 	
+	public function extenedAccessToken($token=null) {
+		$params = array(    
+							'client_id' => $this->getAppId(),
+                            'client_secret' => $this->getAppSecret(),
+                            'grant_type'=>'fb_exchange_token',
+                            'fb_exchange_token'=>$token !== null ? $token : $this->getAccessToken(),
+                      );
+		return $this->_apiCall('access_token', $params, 'oauth', 'get');
+	}
+	
 	/**
 	 * Perform a push api call
 	 * @param string $apiKey the actual api key
 	 * @param array $params array of data to send to the api
 	 * @param string|int $objectId optional the object id to perform the operation on
+	 * @param string $methodType optional the type of the method you want to perform post/get
 	 * @return object|array
 	 */
-	protected function _apiCall($apiKey, array $params, $objectId=null) {
+	protected function _apiCall($apiKey, array $params, $objectId=null, $methodType='post') {
 		try {
-			$this->innerResult = $this->api('/' . $this->getObjectId($objectId) . '/' . $apiKey, 'post', $params);
+			$this->innerResult = $this->api('/' . $this->getObjectId($objectId) . '/' . $apiKey, $methodType, $params);
 		} catch (FacebookApiException $e) {
 		  $this->innerResult = $e;
           return $e;
